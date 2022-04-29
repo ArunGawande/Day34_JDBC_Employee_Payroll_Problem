@@ -1,20 +1,22 @@
 
-import junit.framework.TestCase;
-//import org.testng.Assert;
 import org.junit.Assert;
+import org.junit.Test;
+
 import java.sql.Connection;
 import java.sql.SQLException;
 
-public class DBTest  extends TestCase
+
+public class DBTest
 {
     static Connection a = null;
 
-    public void testReteriveData() {
+    @Test
+    public void givenUpdatedData_shouldRetrieve_correctRecords() {
         try {
             DataBase db = new DataBase();
             a = DataBase.connected();
-            String actual = DataBase.reteriveData(a);
-            Assert.assertEquals("actual ", actual);
+            String expected = DataBase.reteriveData(a);
+            Assert.assertEquals("30000", expected);
         } catch (SQLException e) {
             e.printStackTrace();
         }
