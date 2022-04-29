@@ -3,14 +3,22 @@ import java.sql.Connection;
 import java.sql.Driver;
 import java.sql.DriverManager;
 import java.util.Enumeration;
+import java.sql.*;
 
 public class DataBase
 {
-    public static void main(String[] args) {
+    static Connection a = null;
+
+    public static void main(String[] args) throws SQLException {
+        a = connected();
+        reteriveData(a);
+    }
+
+        public static Connection connected() {
         String jdbcUrl = "jdbc:mysql://localhost:3306/payrollService?user=root";
         String userName = "root";
         String password = "Arun@12345";
-        Connection connection;
+        Connection connection = null;
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             System.out.println("Driver loaded");
@@ -26,6 +34,23 @@ public class DataBase
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return connection;
+    }
+
+    public static String reteriveData(Connection connection) throws SQLException {
+        String deptName = null;
+        String query = "select * from employeePayroll where id=? or name =?";
+        PreparedStatement preparedStatement = connection.prepareStatement(query);
+        preparedStatement.setInt(1, 6);
+        preparedStatement.setString(2, "Priya");
+        ResultSet resultSet = preparedStatement.executeQuery();
+        while (resultSet.next()) {
+                  //System.out.println(resultSet.getInt("id"));
+                  //System.out.println(resultSet.getString("name"));
+            deptName = (resultSet.getString("dept"));
+                 // System.out.println(resultSet.getString("startDate"));
+        }
+        return deptName;
     }
 
     public static void listDrivers() {
