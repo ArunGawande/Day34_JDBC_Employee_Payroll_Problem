@@ -22,7 +22,7 @@ public class DBTest
         }
     }
     @Test
-    public  void givenData_shouldRetrieveData_byName() {
+    void givenData_shouldRetrieveData_byName() {
         try {
             a = DataBase.connected();
             String expected = DataBase.reteriveDataByName(a);
@@ -33,11 +33,21 @@ public class DBTest
     }
 
     @Test
-   public void givenParticularDateRange_shouldReturn_correctRecords() {
+    public void givenParticularDateRange_shouldReturn_correctRecords() {
         try {
             a = DataBase.connected();
             String expected = DataBase.particularDateRange(a);
             Assert.assertEquals("Rohit", expected);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    @Test
+    public void givenGender_shouldReturn_SumSalary() {
+        try {
+            a = DataBase.connected();
+            String expected = DataBase.sumByGroup(a);
+            Assert.assertEquals("110000.0", expected);
         } catch (SQLException e) {
             e.printStackTrace();
         }
